@@ -1,0 +1,22 @@
+<% var data = htmlWebpackPlugin.options; %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= data.title %></title>
+    <style>
+      @viewport, @-ms-viewport { zoom: 1.0; width: device-width; }
+      *, *:before, *:after { box-sizing: inherit; }
+      html { box-sizing: border-box; font-size: 1em; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: #2c3e50;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

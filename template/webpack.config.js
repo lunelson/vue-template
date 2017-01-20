@@ -1,12 +1,20 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlPlugin = require('html-webpack-plugin')
+var FriendlyErrors = require('friendly-errors-webpack-plugin')
+
+var {titleCase} = require('change-case');
+var PKG = require('./package.json')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    bundle: './src/main.js',
+    shared: Object.keys(PKG.dependencies)
+  },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.join(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -15,13 +23,9 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this nessessary.
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
           }
-          // other vue-loader options go here
         }
       },
       {
@@ -44,18 +48,29 @@ module.exports = {
     }
   },
   devServer: {
+    contentBase: path.resolve(__dirname, './dist'),
     historyApiFallback: true,
     noInfo: true
   },
   performance: {
     hints: false
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: 'shared', filename: 'shared.js'}),
+    new HtmlPlugin({
+      template: 'index.ejs',
+      title: titleCase(PKG.name)
+    }),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new FriendlyErrors()
+  ],
   devtool: '#eval-source-map'
 }
 
+// PRODUCTION TWEAKS
+// http://vue-loader.vuejs.org/en/workflow/production.html
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
