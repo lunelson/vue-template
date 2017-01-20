@@ -13,7 +13,6 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/',
     filename: '[name].js'
   },
   module: {
@@ -48,7 +47,6 @@ module.exports = {
     }
   },
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
     historyApiFallback: true,
     noInfo: true
   },
