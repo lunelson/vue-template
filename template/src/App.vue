@@ -1,4 +1,5 @@
 <template>
+
   <div id="app">
     <img src="./assets/logo.png">
     <h1>\{{ msg }}</h1>
@@ -17,20 +18,21 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
   </div>
-</template>
 
+</template>
 <script>
+
 export default {
-  name: 'app',
   data () {
     return {
       msg: 'Everything is working'
     }
   }
 }
-</script>
 
-<style>
+</script>
+<style lang="scss">
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -57,4 +59,5 @@ li {
 a {
   color: #42b983;
 }
+
 </style>
