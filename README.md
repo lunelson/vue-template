@@ -7,7 +7,7 @@ $ npm install -g vue-cli
 $ vue init lunelson/vue-template your-project-name
 $ cd your-project-name
 $ npm install
-$ npm run dev
+$ npm start
 ```
 ## What's in it
 
